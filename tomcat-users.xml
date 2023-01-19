@@ -1,0 +1,5 @@
+---
+<tomcat-users>
+   <user username="intelliqit" password="intelliqit" roles="manager-script"/>
+   <user username="devops" password="intelliqit" roles="tomcat"/>
+</tomcat-user>

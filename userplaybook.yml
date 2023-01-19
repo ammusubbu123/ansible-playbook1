@@ -1,0 +1,13 @@
+---
+- name: creating user
+  hosts: all
+  tasks:
+    - name: user creation
+      user:
+         name: Amaleswari
+         password: vennela
+         comment: "personal user"
+         uid: 2345
+         home: /ubuntu/Amaleswari
+         shell: /bin/bash
+...
