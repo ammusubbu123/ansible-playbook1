@@ -1,0 +1,14 @@
+- name: istalling s/w's usingloops
+  hosts: all
+  tasks:
+    - name: Istallation of s/w's
+      apt:
+        name: "{{item.a}}"
+        state: "{{item.b}}"
+        update_cache: "{{item.c}}"
+      with_items:
+        - {a: tree,b: present,c: yes}
+        - {a: git,b: absent,c: no}
+        - {a: tomcat9,b: absent,c: no}
+        - {a: tomcat9-admin,b: absent,c: no}
+
