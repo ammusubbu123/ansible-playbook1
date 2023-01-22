@@ -1,0 +1,19 @@
+- name: Installing pache2 by using Handler
+  hosts: all
+  tasks:
+    - name: Install apache2
+      apt: 
+        name: apache2
+        state: present
+        update_cache: yes
+    - name: modify index.html file
+      copy: 
+        content: Amaleswari apache2
+        dest: /var/www/html/index.html
+      notify: Restart apache2
+  handlers:
+    - name: Restart apache2
+      service:
+        name: apache2
+        state: restarted
+
