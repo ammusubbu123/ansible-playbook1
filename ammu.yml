@@ -1,0 +1,10 @@
+- name: check ammu is present or not if present change its password
+  hosts: all
+  tasks:
+    - name: check ammu is present or not
+      user:
+        name: /home/ubuntu/ammu
+      register: a
+    - name: display output
+      debug: 
+        var: a

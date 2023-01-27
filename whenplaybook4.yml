@@ -1,0 +1,16 @@
+---
+- name: check if file1 has execute permissions if so delete it
+  hosts: all
+  tasks: 
+     - name: check the permissions of file1 
+       stat: 
+         path: /tmp/newfile
+       register: a
+     - name: dipplat output of a
+       debug: 
+         var: a
+     - name: delete if it is not executable
+       file:
+         name: /tmp/newfile
+         state: absent
+       when: a.stat.executable == true

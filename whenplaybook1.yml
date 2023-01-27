@@ -1,0 +1,11 @@
+- name: using when condition
+  hosts: all
+  vars:
+     - a: 10
+  tasks:
+     - name: installing tree
+       apt: 
+          name: tree
+          state: present
+          update_cache: yes
+       when: a == 7 

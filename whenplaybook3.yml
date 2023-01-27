@@ -1,0 +1,13 @@
+---
+- name: check ammu is present or not if present change its password
+  hosts: all
+  tasks:  
+    - name: check ammu is present or not
+      stat:
+        name: /etc/passwd/ammu
+      register: a
+    - name: change the password if present
+      user:
+        password: ammusubbu
+      when: a.user.exists == present
+...

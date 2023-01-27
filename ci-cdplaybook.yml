@@ -1,0 +1,38 @@
+---
+- name: ci-cd by ansible
+  hosts: all
+  tasks:
+    - name: install s/w's
+      apt:
+        name: "{{item.a}}"
+        state: present
+        update_cache: "{{item.b}}"
+      with_items:
+        - {a: openjdk-11-jdk,b: yes}
+        - {a: git,b: yes}
+        - {a: maven,b: yes}
+        - {a: tomcat9,b: yes}
+        - {a: tomcat9-admin,b: yes}
+- name: continouus download from git
+  hosts: devserver
+  tasks:
+    - name: 1.continuous download
+      git: 
+         repo: https://github.com/intelliqittrainings/maven.git
+         dest: dev-git
+    - name: creating arifact using mvn package
+      shell: cd dev-git;mvn package
+    - name: copying artifact from devser to controller by fetch module
+      fetch:
+        src: dev-git/webapp/target/webapp.war
+        dest: /tmp
+- name: continouus deployment and continous testing
+  hosts: qaserver
+  tasks: 
+    - name: continous deployment by copying artifact into tomcat9
+      copy:
+        src: /tmp/172.31.19.255/dev-git/webapp/target/webapp.war
+        dest: /var/lib/tomcat9/webapps/testapp.war 
+
+...
+        
